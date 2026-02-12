@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Be My Valentine 💖</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #ff758c, #ff7eb3);
+    }
+
+    .box {
+      background: rgba(255,255,255,0.2);
+      padding: 50px;
+      border-radius: 25px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      z-index: 10;
+    }
+
+    h1, p {
+      color: white;
+    }
+
+    button {
+      padding: 14px 30px;
+      margin: 12px;
+      border: none;
+      border-radius: 12px;
+      font-size: 18px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+    }
+
+    #yesBtn {
+      background: white;
+      color: #e11d48;
+    }
+
+    #noBtn {
+      background: rgba(0,0,0,0.3);
+      color: white;
+    }
+
+    #message {
+      display: none;
+      margin-top: 25px;
+      font-size: 22px;
+      font-weight: bold;
+      color: white;
+    }
+
+    /* 💖 Floating Effect */
+    .floating {
+      position: absolute;
+      bottom: -50px;
+      font-size: 35px;
+      animation: floatUp 3s linear forwards;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-800px);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="box">
+    <h1>Hey My Special One 💕</h1>
+    <p>Will you be my Valentine? ❤️</p>
+
+    <button id="yesBtn">Yes 💖</button>
+    <button id="noBtn">No 🙈</button>
+
+    <div id="message">Too late 😏💖  
+    My heart already claimed you… you just confirmed it ❤️🙄
+
+
+  </div>
+
+ <script>
+  const yesBtn = document.getElementById("yesBtn");
+  const noBtn = document.getElementById("noBtn");
+  const message = document.getElementById("message");
+
+  let noSize = 1; // 👈 starting size
+
+  // 💖 Floating hearts
+  function createHearts() {
+    for (let i = 0; i < 15; i++) {
+      const heart = document.createElement("div");
+      heart.classList.add("floating");
+      heart.innerHTML = "💖";
+
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (Math.random() * 2 + 2) + "s";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 3000);
+    }
+  }
+
+  // 😡 Angry emojis
+  function createAngryEmojis() {
+    for (let i = 0; i < 15; i++) {
+      const angry = document.createElement("div");
+      angry.classList.add("floating");
+      angry.innerHTML = "😡";
+
+      angry.style.left = Math.random() * 100 + "vw";
+      angry.style.animationDuration = (Math.random() * 2 + 2) + "s";
+
+      document.body.appendChild(angry);
+
+      setTimeout(() => angry.remove(), 3000);
+    }
+  }
+
+  // ✅ YES Button
+  yesBtn.addEventListener("click", () => {
+    const yesSound = new Audio("yes.wav");
+    yesSound.play();
+
+    message.style.display = "block";
+    createHearts();
+  });
+
+  // ✅ NO Button (Moves + Angry + Shrinks)
+  noBtn.addEventListener("click", () => {
+    const noSound = new Audio("no.wav");
+    noSound.play();
+
+    createAngryEmojis();
+
+    // Move button randomly
+    noBtn.style.position = "absolute";
+    noBtn.style.left = Math.random() * 70 + "%";
+    noBtn.style.top = Math.random() * 70 + "%";
+
+    // 👇 Shrink button each click
+    noSize -= 0.15; // reduce size
+
+    if (noSize > 0.3) {
+      noBtn.style.transform = `scale(${noSize})`;
+    } else {
+      noBtn.style.display = "none"; // disappears completely 😂
+    }
+  });
+</script>
+
+
+</body>
+</html>
